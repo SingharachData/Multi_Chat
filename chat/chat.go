@@ -11,6 +11,7 @@ import (
 type Message struct {
 	Id       int64     `json:"id,omitempty"`
 	Sender   string    `json:"sender,omitempty"`
+	Name   string    `json:"name,omitempty"`
 	SentTime time.Time `json:"sentTime,omitempty"`
 	Text     string    `json:"text,omitempty"`
 }
@@ -49,15 +50,17 @@ func (c *Chat) All() ([]*Message, error) {
 	for rows.Next() {
 		var id int64
 		var sender string
+		var name string
 		var sentTime time.Time
 		var text string
-		if err := rows.Scan(&id, &sender, &sentTime, &text); err != nil {
+		if err := rows.Scan(&id, &sender, &name, &sentTime, &text); err != nil {
 			return nil, fmt.Errorf("error while scanning a row in All: %v", err)
 		}
 
 		messages = append(messages, &Message{
 			Id:       id,
 			Sender:   sender,
+			Name:     name,
 			SentTime: sentTime,
 			Text:     text,
 		})
@@ -70,22 +73,24 @@ func (c *Chat) Item(ID int64) (*Message, error) {
 	row := c.db.QueryRow(getMessageFromChat, ID)
 	var id int64
 	var sender string
+	var name string
 	var sentTime time.Time
 	var text string
-	if err := row.Scan(&id, &sender, &sentTime, &text); err != nil {
+	if err := row.Scan(&id, &sender, &name, &sentTime, &text); err != nil {
 		return nil, fmt.Errorf("error while scanning the row in Item: %v", err)
 	}
 
 	return &Message{
 		Id:       id,
 		Sender:   sender,
+		Name: 	  name,
 		SentTime: sentTime,
 		Text:     text,
 	}, nil
 }
 
 func (c *Chat) Create(mess *Message) (*Message, error) {
-	res, err := c.db.Exec(insertMessageIntoChat, mess.Sender, mess.SentTime, mess.Text)
+	res, err := c.db.Exec(insertMessageIntoChat, mess.Sender, mess.Name, mess.SentTime, mess.Text)
 	if err != nil {
 		return nil, fmt.Errorf("error while inserting the message in Create: %v", err)
 	}

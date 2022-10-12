@@ -8,7 +8,7 @@ const clientTag = generateClientTag();
 const me = `Client#${clientTag}`;
 
 function getMessageDivId(id) {
-    return  `message-${id}`;
+    return `message-${id}`;
 }
 
 let inboxDiv = null;
@@ -22,17 +22,20 @@ function addMessageToInbox(message) {
     messageDiv.className = sentByMe ? "mine" : "others";
     messageDiv.className += " message";
 
+
     if (!sentByMe) {
-        const senderP = document.createElement("p");
-        senderP.className = "sender";
-        senderP.innerHTML = message.sender;
-        messageDiv.appendChild(senderP);
+        const nameInput = document.createElement("p");
+        nameInput.className = "name";
+        nameInput.innerHTML = message.name;
+        messageDiv.appendChild(nameInput);
     }
+
 
     const messageTextInput = document.createElement("input");
     messageTextInput.type = "text";
     messageTextInput.value = message.text;
     messageDiv.appendChild(messageTextInput);
+
 
     if (sentByMe) {
         const editButton = document.createElement("input");
@@ -66,10 +69,12 @@ window.onload = () => {
 
     const messageTextInput = document.getElementById("message-text-input");
     const sendButton = document.getElementById("send-button");
+    const nameInput = document.getElementById("name-input")
 
     sendButton.onclick = () => {
         liveGoll.create({
             sender: me,
+            name: `Username:${nameInput.value}`,
             sentTime: new Date(),
             text: messageTextInput.value,
         });

@@ -1,3 +1,2 @@
-node_modules/
-static/bundle.js
-server/chat.db
+/server/chat.db
+node_modules

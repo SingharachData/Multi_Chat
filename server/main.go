@@ -34,6 +34,6 @@ func main() {
 
 	// After we created liveGoll, to enable it we just need to register a route handled by liveGoll.Join.
 	http.HandleFunc("/livegollection", liveGoll.Join)
-
+	fmt.Println("Server starting at :8080")
 	log.Fatal(http.ListenAndServe("localhost:8080", nil))
 }

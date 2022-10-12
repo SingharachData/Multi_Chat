@@ -9,7 +9,7 @@ html, body {
 }
 
 body {
-    background-color: #F2E9E4;
+    background-color: #d2d2d2;
 }
 
 .chat {
@@ -40,11 +40,16 @@ body {
     width: fit-content;
     margin-bottom: 10px;
     border-radius: 5px;
-    background-color:#C9ADA7;
+    background-color:#ffffff;
     padding: 5px;
 }
 
 .sender {
+    font-size: small;
+    margin: 0px;
+}
+
+.name {
     font-size: small;
     margin: 0px;
 }
@@ -66,7 +71,11 @@ body {
 }
 
 .bottom-white-space {
-    height: 50px;
+    height: 25px;
+}
+
+.bottom-blank-space {
+    height: 10px;
 }
 
 input {
@@ -76,9 +85,10 @@ input {
 }
 
 input[type=text] {
-    background-color: transparent;
+    background-color: white;
 }
 
-input[type=button] {
-    background-color: #9A8C98;
-}
+
+input[type=button]:hover {
+       background-color: rgb(102, 247, 50); 
+    }
